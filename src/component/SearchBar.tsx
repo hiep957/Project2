@@ -2,7 +2,7 @@
 
 const SearchBar = () => {
     return (
-        <form className="max-w-md ml-5 mb-4">
+        <form className="w-[430px] ml-5 mb-4">
           <label
             // for="default-search"
             className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"

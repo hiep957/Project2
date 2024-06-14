@@ -1,18 +1,16 @@
 // PDFViewer.tsx
 
-import React from 'react';
-import { PDFViewer } from '@react-pdf/renderer';
-import PDFDocument from './PDFDocument';
+import React from "react";
+import { PDFViewer } from "@react-pdf/renderer";
 
-const PDFViewerComponent = ()=> {
+import PDFLopThi from "./PDFLopThi";
 
+const PDFViewerComponent = () => {
   return (
-    <PDFViewer className='flex bg-blue-300 h-full w-full '>
-      <PDFDocument />
+    <PDFViewer>
+      <PDFLopThi></PDFLopThi>
     </PDFViewer>
   );
-  
-  
 };
 
 export default PDFViewerComponent;

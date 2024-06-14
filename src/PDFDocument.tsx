@@ -11,10 +11,10 @@ import {
 } from "@react-pdf/renderer";
 
 // Dữ liệu về điểm thi
-Font.register({
-  family: "Sans-serif",
-  src: "src/font/Roboto-Medium.ttf",
-});
+  Font.register({
+    family: "Sans-serif",
+    src: "src/font/Roboto-Medium.ttf",
+  });
 interface Student {
   STT: number;
   MSSV: string;
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const PDFDocument: React.FC = () => {
+const PDFDocument = () => {
   console.log(data);
   return (
     <Document>

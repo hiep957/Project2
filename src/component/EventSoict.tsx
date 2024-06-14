@@ -1,11 +1,12 @@
 const EventSoict = () => {
   return (
-    <div className="max-w-80 h-1/4  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="w-[300px] h-[480px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      
       <a href="#">
         <img
-          className="rounded-t-lg"
+          className="rounded-t-lg h-48 w-full object-cover"
           src="src/assets/inovation.png"
-          alt=""
+          alt="123"
         />
       </a>
       <div className="p-5">

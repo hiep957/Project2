@@ -9,11 +9,11 @@ export default {
         inputColor: '#B0BAC3'
       }
     },
-    container:{
-      padding: {
-        md: "10rem",
-      },
-    }
+    // container:{
+    //   padding: {
+    //     md: "4rem",
+    //   },
+    // }
   },
   plugins: [],
 }

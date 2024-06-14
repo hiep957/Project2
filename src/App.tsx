@@ -1,7 +1,7 @@
 // App.tsx
 
 import React from "react";
-import PDFViewerComponent from "./PDFViewer";
+// import PDFViewerComponent from "./PDFViewer";
 import {
   BrowserRouter as Router,
   Routes,
@@ -13,20 +13,22 @@ import HomePage from "./page/HomePage";
 import Layout from "./layout/Layout";
 import Login from "./page/Login";
 import Signup from "./page/Signup";
-import HomePageGiaoVu from "./page/HomePageGiaoVu";
-import Tab from "./component/Tab";
-import EventSoict from "./component/EventSoict";
 import Xeplich from "./page/Xeplich";
 import HocPhan from "./page/HocPhan";
 import CaiDatThoiGian from "./page/CaiDatThoiGian";
 import BieuMau from "./page/BieuMau";
+import PDFViewerComponent from "./PDFViewer";
+import TestSideBar from "./component/TestSideBar";
+import EventSoict from "./component/EventSoict";
 const App = () => {
   return (
     <Router>
       <Routes>
+        {/* <Route path="/sidebar" element={<TestSideBar></TestSideBar>}></Route> */}
+        <Route path="/pdf" element={<PDFViewerComponent />} />
         <Route path="/signin" element={<Login></Login>}></Route>
         <Route path="/signup" element={<Signup></Signup>}></Route>
-        <Route path="/pdf" element={<PDFViewerComponent />} />
+
         <Route
           path="/"
           element={
@@ -41,31 +43,40 @@ const App = () => {
           path="/giaovu"
           element={
             <Layout>
-              {/* <div className="flex">
-                <Tab />
-                <div 
-                className=" max-w-2xl border p-6 bg-gray-50 text-medium text-gray-500 dark:text-gray-400
-                 dark:bg-gray-800 rounded-lg mr-3 ml-3 "
-                 >
+              <div className="flex flex-row space-x-3">
+                <TestSideBar></TestSideBar>
+
+                <div className="w-4/6 border-r border-l p-2">
                   <Outlet />
                 </div>
-
-                <EventSoict />
-              </div> */}
-              <HomePageGiaoVu />
+                
+                <div className="w-1/6">
+                  <EventSoict></EventSoict>
+                </div>
+              </div>
             </Layout>
           }
         >
-          {/* <Route index element={<Navigate to="xeplich" />} />
-          <Route path="caidatthoigian" element={<CaiDatThoiGian/>}></Route>
+          <Route index element={<Navigate to="xeplich" />} />
+          <Route path="caidatthoigian" element={<CaiDatThoiGian />}></Route>
           <Route path="xeplich" element={<Xeplich />} />
           <Route path="hocphan" element={<HocPhan />} />
-          <Route path="bieumau" element={<BieuMau/>}/> */}
+          {/* <Route path="bieumau" element={<BieuMau />} /> */}
         </Route>
-         
+        <Route
+          path="/bieumau"
+          element={
+            <Layout>
+              <div className="flex flex-row space-x-3">
+                <TestSideBar></TestSideBar>
+                <BieuMau></BieuMau>
+                <EventSoict></EventSoict>
+              </div>
+            </Layout>
+          }
+        />
       </Routes>
     </Router>
-  
   );
 };
 
