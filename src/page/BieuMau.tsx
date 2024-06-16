@@ -1,7 +1,7 @@
 
 import { PDFViewer } from "@react-pdf/renderer";
 
-import PDFDocument from "../PDFDocument";
+
 import PDFLopThi from "../PDFLopThi";
 // import PDFViewerComponent from "../PDFViewer";
 

@@ -1,6 +1,6 @@
 // App.tsx
 
-import React from "react";
+
 // import PDFViewerComponent from "./PDFViewer";
 import {
   BrowserRouter as Router,
@@ -21,11 +21,15 @@ import PDFViewerComponent from "./PDFViewer";
 import TestSideBar from "./component/TestSideBar";
 import EventSoict from "./component/EventSoict";
 import GiaoVien from "./page/GiaoVien";
+import Api from "./page/Api";
 const App = () => {
   return (
     <Router>
+
+
       <Routes>
         {/* <Route path="/sidebar" element={<TestSideBar></TestSideBar>}></Route> */}
+        <Route path="/api" element={<Api></Api>}></Route>
         <Route path="/pdf" element={<PDFViewerComponent />} />
         <Route path="/signin" element={<Login></Login>}></Route>
         <Route path="/signup" element={<Signup></Signup>}></Route>

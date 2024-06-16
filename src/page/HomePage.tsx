@@ -1,30 +1,30 @@
 import { useEffect, useState } from "react";
 import EventSoict from "../component/EventSoict";
 import ExamStudent from "../component/ExamStudent";
-import SearchBar from "../component/SearchBar";
+// import SearchBar from "../component/SearchBar";
 import Swiper1 from "../component/Swiper";
 
-type infoStudent = {
-  studentId: string;
-  studyGroup: string;
-  studyGroupId: string;
-  numbOrder: number;
-  examId: string;
-  NgayThi: string;
-  PhongThi: string;
-  courseId: string;
-  name: string;
-  studentName: string;
-  groupName: string;
-  email: string;
-  classId: string;
-  section: string;
-  note: string;
-  termId: string;
-  GiangVien: string;
-};
+// type infoStudent = {
+//   studentId: string;
+//   studyGroup: string;
+//   studyGroupId: string;
+//   numbOrder: number;
+//   examId: string;
+//   NgayThi: string;
+//   PhongThi: string;
+//   courseId: string;
+//   name: string;
+//   studentName: string;
+//   groupName: string;
+//   email: string;
+//   classId: string;
+//   section: string;
+//   note: string;
+//   termId: string;
+//   GiangVien: string;
+// };
 
-const itemSearch = ["MSSV", "Lớp", "Mã học phần"];
+// const itemSearch = ["MSSV", "Lớp", "Mã học phần"];
 
 const HomePage = () => {
   const [scheduleData, setScheduleData] = useState<any>(null);

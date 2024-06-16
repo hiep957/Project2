@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+// import  { useState } from "react";
 
 const Sidebar = () => {
-  const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
+  // const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
 
-  const toggleSubmenu = () => {
-    setIsSubmenuOpen(!isSubmenuOpen);
-  };
+  // const toggleSubmenu = () => {
+  //   setIsSubmenuOpen(!isSubmenuOpen);
+  // };
 
   return (
     <div className="bg-slate-200 w-60">

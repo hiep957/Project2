@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { useState } from "react";
-import { set, useForm } from "react-hook-form";
+// import { useState } from "react";
+import {  useForm } from "react-hook-form";
 export type LoginForm = {
   email: string;
   password: string;
@@ -11,7 +11,7 @@ export type LoginForm = {
 const Login = () => {
   const {
     register,
-    formState: { errors },
+
     handleSubmit,
   } = useForm<LoginForm>();
 

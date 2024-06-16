@@ -1,6 +1,6 @@
-import { Path } from "@react-pdf/renderer";
+// import { Path } from "@react-pdf/renderer";
 import { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const tabData = [
   { id: 1, content: "Xếp lịch",path:'xeplich' },
@@ -10,7 +10,7 @@ const tabData = [
 ];
 const Tab = () => {
   const [activeTab, setActiveTab] = useState(1);
-  const location = useLocation();
+  // const location = useLocation();
   //   const handleButon = () => {
   //     setActiveTab()
   //   }
