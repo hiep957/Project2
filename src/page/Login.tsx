@@ -1,7 +1,44 @@
 import { Link } from "react-router-dom";
 import { FaGithub } from "react-icons/fa";
-import { FcGoogle  } from "react-icons/fc";
+import { FcGoogle } from "react-icons/fc";
+import { useState } from "react";
+import { set, useForm } from "react-hook-form";
+export type LoginForm = {
+  email: string;
+  password: string;
+  role: string;
+};
 const Login = () => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<LoginForm>();
+
+  const onSubmit = handleSubmit(async () => {
+    try {
+      const response = await fetch('https://8f51-113-190-119-178.ngrok-free.app/api/v1/auth/login', {
+        method: 'GET',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true',
+          'Access-Control-Allow-Origin': "*",
+          'Access-Control-Allow-Methods': "GET,POST,OPTIONS,DELETE,PUT"
+        },
+        // body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
+      }
+
+      // const responseData = await response.json();
+      // console.log(responseData);
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  });
   return (
     <div className="flex justify-center items-center bg-gray-100 min-h-screen p-20">
       <div className=" bg-white flex rounded w-4/5 ">
@@ -14,22 +51,69 @@ const Login = () => {
         </div>
 
         <div className="flex items-center justify-center w-3/5 ">
-          <form className="flex flex-col items-center p-20 w-full">
+          <form
+            className="flex flex-col items-center p-20 w-full"
+            onSubmit={onSubmit}
+          >
             <div className="font-bold ">Đăng nhập hệ thống</div>
-            <label className="flex flex-col w-full font-light mb-4">
+            {/* <label className="flex flex-col w-full font-light mb-4">
               Email
               <input
+                type="email"
                 className="bg-gray-300 w-full rounded-lg p-2  text-sm "
                 placeholder="Enter your email hear"
+                required
+                {...register("email", { required: "This field is required" })}
               />
+              {errors.email && (
+                <span className="text-red-500"> {errors.email.message}</span>
+              )}
             </label>
             <label className="flex flex-col w-full font-light">
               Password
               <input
                 className="bg-gray-300 w-full rounded-lg p-2  text-sm "
                 placeholder="Enter your email hear"
+                required
+                {...register("password", {
+                  required: "This field is required",
+                })}
+                type="password"
               />
-            </label>
+              {errors.password && (
+                <span className="text-red-500"> {errors.password.message}</span>
+              )}
+            </label> */}
+
+            <div className="flex flex-col space-y-2">
+              <label className="flex items-center">
+                <input
+                  type="radio"
+                  value="sinhvien"
+                  {...register("role")}
+                  className="form-radio text-blue-600 h-4 w-4"
+                />
+                <span className="ml-2">Sinh viên</span>
+              </label>
+              <label className="flex items-center">
+                <input
+                  type="radio"
+                  value="giaovien"
+                  {...register("role")}
+                  className="form-radio text-blue-600 h-4 w-4"
+                />
+                <span className="ml-2">Giáo viên</span>
+              </label>
+              <label className="flex items-center">
+                <input
+                  type="radio"
+                  value="giaovu"
+                  className="form-radio text-blue-600 h-4 w-4"
+                  {...register("role")}
+                />
+                <span className="ml-2">Giáo vụ</span>
+              </label>
+            </div>
 
             <span className="flex items-center justify-between mt-4">
               <span className="text-sm">
@@ -49,9 +133,10 @@ const Login = () => {
 
             <span className="font-sm mt-5"> - OR -</span>
             <div className="flex flex-row gap-x-2 mt-5">
-              <button className="flex  border border-gray-300 rounded-lg text-md p-2">
+              <button className="flex  border border-gray-300 rounded-lg text-md p-2"  >
                 <FcGoogle className="w-6 h-6 inline mr-2" />
-                Đăng nhập bằng Google
+                <a href="https://8f51-113-190-119-178.ngrok-free.app/api/v1/auth/login">Đăng nhập bằng Google</a>
+                
               </button>
               <button className="flex  border border-gray-300 rounded-lg text-md p-2">
                 <FaGithub className="w-6 h-6 inline mr-2" />

@@ -1,11 +1,55 @@
+import { useEffect, useState } from "react";
 import EventSoict from "../component/EventSoict";
 import ExamStudent from "../component/ExamStudent";
 import SearchBar from "../component/SearchBar";
 import Swiper1 from "../component/Swiper";
 
+type infoStudent = {
+  studentId: string;
+  studyGroup: string;
+  studyGroupId: string;
+  numbOrder: number;
+  examId: string;
+  NgayThi: string;
+  PhongThi: string;
+  courseId: string;
+  name: string;
+  studentName: string;
+  groupName: string;
+  email: string;
+  classId: string;
+  section: string;
+  note: string;
+  termId: string;
+  GiangVien: string;
+};
+
 const itemSearch = ["MSSV", "Lớp", "Mã học phần"];
 
 const HomePage = () => {
+  const [scheduleData, setScheduleData] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://8f51-113-190-119-178.ngrok-free.app/api/v1/student/do-schedule?courseIds=IT1014&semester=2023.1',{
+          headers: { 
+            'ngrok-skip-browser-warning': 'true' 
+         }
+        });
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setScheduleData(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  console.log(scheduleData);
   return (
     <div className="border-b">
       <div className="mb-4">
@@ -45,7 +89,7 @@ const HomePage = () => {
             </span>
           </div>
 
-          <SearchBar></SearchBar>
+          {/* <SearchBar></SearchBar> */}
 
           <div>
             <span>Bạn có 4 lớp thi</span>

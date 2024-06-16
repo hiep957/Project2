@@ -20,6 +20,7 @@ import BieuMau from "./page/BieuMau";
 import PDFViewerComponent from "./PDFViewer";
 import TestSideBar from "./component/TestSideBar";
 import EventSoict from "./component/EventSoict";
+import GiaoVien from "./page/GiaoVien";
 const App = () => {
   return (
     <Router>
@@ -75,6 +76,8 @@ const App = () => {
             </Layout>
           }
         />
+
+        <Route path="/giaovien" element={<Layout><GiaoVien></GiaoVien></Layout>}></Route>
       </Routes>
     </Router>
   );
