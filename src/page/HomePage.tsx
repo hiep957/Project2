@@ -47,7 +47,11 @@ export type infoStudent = {
   groupName: string;
   email: string;
 };
+
+const URL_API = import.meta.env.SERVER || ""
+
 const HomePage = () => {
+  
   const authContext = useContext(AuthContext);
   if (!authContext) {
     return;
@@ -108,6 +112,7 @@ const HomePage = () => {
   }, []);
   console.log(studentData);
   console.log(scheduleData);
+  console.log(URL_API)
   return (
     <div className="border-b">
       <div className="mb-4">

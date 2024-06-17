@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { examSessionData, postexamSession } from "../CallApi";
+import { AuthContext } from "../contexts/AuthContext";
 
 const dataKipthi = [
   { label: "Kíp 1", start: "7h30", end: "9h30" },
@@ -8,16 +10,67 @@ const dataKipthi = [
 ];
 
 const CaiDatThoiGian = () => {
-  const [tenKip, setTenKip] = useState("");
-  const [thoiGianBatDau, setThoiGianBatDau] = useState("");
-  const [thoiGianKetThuc, setThoiGianKetThuc] = useState("");
+  const authContext = useContext(AuthContext);
+  const [label, setLabel] = useState("");
+  const [start1, setStart1] = useState("");
+  const [end1, setEnd1] = useState("");
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     // Handle form submission here
-    console.log({ tenKip, thoiGianBatDau, thoiGianKetThuc });
+    const start = start1.replace(":", "h");
+    const end = end1.replace(":", "h");
+    postexamSession({ label, start, end });
+    getExamSession().then((data) => {
+      console.log(data);
+    })
+    // console.log({ label, start, end });
   };
 
+  const getExamSession = async () => {
+    if (!authContext) {
+      return;
+    }
+    const { accessToken } = authContext;
+    const response = await fetch(
+      "https://7d87-42-113-220-219.ngrok-free.app/api/v1/exam-session",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "true",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  };
+
+  const postexamSession = async (data: any) => {
+    if (!authContext) {
+      return;
+    }
+    const { accessToken } = authContext;
+    const response = await fetch(
+      "https://7d87-42-113-220-219.ngrok-free.app/api/v1/exam-session",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "true",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  };
   return (
     <div className="flex flex-row justify-center items-center">
       <form
@@ -29,8 +82,8 @@ const CaiDatThoiGian = () => {
           Tên kíp:
           <input
             type="text"
-            value={tenKip}
-            onChange={(e) => setTenKip(e.target.value)}
+            value={label}
+            onChange={(e) => setLabel(e.target.value)}
             className="rounded p-2"
           />
         </label>
@@ -38,16 +91,16 @@ const CaiDatThoiGian = () => {
           Thời gian bắt đầu:
           <input
             type="time"
-            value={thoiGianBatDau}
-            onChange={(e) => setThoiGianBatDau(e.target.value)}
+            value={start1}
+            onChange={(e) => setStart1(e.target.value)}
           />
         </label>
         <label>
           Thời gian kết thúc:
           <input
             type="time"
-            value={thoiGianKetThuc}
-            onChange={(e) => setThoiGianKetThuc(e.target.value)}
+            value={end1}
+            onChange={(e) => setEnd1(e.target.value)}
           />
         </label>
         <button

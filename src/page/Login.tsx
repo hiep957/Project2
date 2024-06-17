@@ -61,34 +61,7 @@ const Login = () => {
             onSubmit={onSubmit}
           >
             <div className="font-bold ">Đăng nhập hệ thống</div>
-            {/* <label className="flex flex-col w-full font-light mb-4">
-              Email
-              <input
-                type="email"
-                className="bg-gray-300 w-full rounded-lg p-2  text-sm "
-                placeholder="Enter your email hear"
-                required
-                {...register("email", { required: "This field is required" })}
-              />
-              {errors.email && (
-                <span className="text-red-500"> {errors.email.message}</span>
-              )}
-            </label>
-            <label className="flex flex-col w-full font-light">
-              Password
-              <input
-                className="bg-gray-300 w-full rounded-lg p-2  text-sm "
-                placeholder="Enter your email hear"
-                required
-                {...register("password", {
-                  required: "This field is required",
-                })}
-                type="password"
-              />
-              {errors.password && (
-                <span className="text-red-500"> {errors.password.message}</span>
-              )}
-            </label> */}
+           
 
             <div className="flex flex-col space-y-2">
               <label className="flex items-center">
@@ -112,7 +85,7 @@ const Login = () => {
               <label className="flex items-center">
                 <input
                   type="radio"
-                  value="academic_affairs"
+                  value="academic_affair"
                   className="form-radio text-blue-600 h-4 w-4"
                   {...register("role")}
                 />

@@ -23,6 +23,8 @@ import EventSoict from "./component/EventSoict";
 import GiaoVien from "./page/GiaoVien";
 import Api from "./page/Api";
 import ThemLichThi from "./page/ThemLichThi";
+import Chucnang from "./page/Chucnang";
+import DanhSachPhongMay from "./page/DanhSachPhongMay";
 const App = () => {
   return (
     <Router>
@@ -81,9 +83,28 @@ const App = () => {
             </Layout>
           }
         />
+        <Route path="/giaovu/chucnang" element={
+          <Layout>
+          <div className="flex flex-row space-x-3">
+            <TestSideBar></TestSideBar>
+            <Chucnang></Chucnang>
+            <EventSoict></EventSoict>
+          </div>
+        </Layout>
+        }></Route>
+        <Route path = "/giaovu/danhsachphongmay" element={
+           <Layout>
+           <div className="flex flex-row space-x-3">
+             <TestSideBar></TestSideBar>
+             <DanhSachPhongMay></DanhSachPhongMay>
+             <EventSoict></EventSoict>
+           </div>
+         </Layout>
+        }></Route>
 
         <Route path="/giaovien" element={<Layout><GiaoVien></GiaoVien></Layout>}></Route>
         <Route path="/giaovien/themlichthi" element={<Layout><ThemLichThi></ThemLichThi></Layout>}></Route>
+        
       </Routes>
     </Router>
   );
