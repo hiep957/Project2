@@ -4,11 +4,12 @@
 import { PDFViewer } from "@react-pdf/renderer";
 
 import PDFLopThi from "./PDFLopThi";
+import PDFDocument from "./PDFDocument";
 
 const PDFViewerComponent = () => {
   return (
     <PDFViewer>
-      <PDFLopThi></PDFLopThi>
+      <PDFDocument></PDFDocument>
     </PDFViewer>
   );
 };

@@ -4,8 +4,8 @@ import React, { createContext, useState } from "react";
 interface AuthContextType {
   accessToken: string | null;
   role: string | null;
-  setAccessToken: (value: string | null) => void;
-  setRole: (value: string | null) => void;
+  setAccessToken: (token: string | null) => void;
+  setRole: (role: string | null) => void;
 }
 
 // Create the context
@@ -15,8 +15,8 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 
 // Create a provider component
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [accessToken, setAccessToken] = useState<string | null>(null);
-  const [role, setRole] = useState<string | null>("hocsinh");
+  const [accessToken, setAccessToken] = useState<string|null >("");
+  const [role, setRole] = useState<string|null>("");
 
   return (
     <AuthContext.Provider

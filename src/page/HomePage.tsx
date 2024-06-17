@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import EventSoict from "../component/EventSoict";
-import ExamStudent from "../component/ExamStudent";
+// import ExamStudent, { examData } from "../component/ExamStudent";
 // import SearchBar from "../component/SearchBar";
 import Swiper1 from "../component/Swiper";
+import { AuthContext } from "../contexts/AuthContext";
 
 // type infoStudent = {
 //   studentId: string;
@@ -25,30 +26,87 @@ import Swiper1 from "../component/Swiper";
 // };
 
 // const itemSearch = ["MSSV", "Lớp", "Mã học phần"];
+export type examData = {
+  examId: string;
+  week: string;
+  day: string;
+  date: string;
+  classId: string;
+  courseId: string;
+  courseName: string;
+  studyGroup: string;
+  numbOrder: number;
+  room: string;
+  sessionId: string;
+  type: string;
+};
 
+export type infoStudent = {
+  id: string;
+  name: string;
+  groupName: string;
+  email: string;
+};
 const HomePage = () => {
-  const [scheduleData, setScheduleData] = useState<any>(null);
-
+  const authContext = useContext(AuthContext);
+  if (!authContext) {
+    return;
+  }
+  const { accessToken } = authContext;
+  const [scheduleData, setScheduleData] = useState<examData[] | undefined>([]);
+  const [studentData, setStudentData] = useState<infoStudent | undefined>();
+  console.log(accessToken);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('https://8f51-113-190-119-178.ngrok-free.app/api/v1/student/do-schedule?courseIds=IT1014&semester=2023.1',{
-          headers: { 
-            'ngrok-skip-browser-warning': 'true' 
-         }
-        });
+        const response = await fetch(
+          "https://7d87-42-113-220-219.ngrok-free.app/api/v1/exam-class/student-schedule",
+          {
+            headers: {
+              "ngrok-skip-browser-warning": "true",
+              semester: "2023.1",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
-        const data = await response.json();
+        const data: examData[] = await response.json();
         setScheduleData(data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
   }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://7d87-42-113-220-219.ngrok-free.app/api/v1/student",
+          {
+            headers: {
+              "ngrok-skip-browser-warning": "true",
+              
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data: infoStudent = await response.json();
+        setStudentData(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  console.log(studentData);
   console.log(scheduleData);
   return (
     <div className="border-b">
@@ -92,20 +150,39 @@ const HomePage = () => {
           {/* <SearchBar></SearchBar> */}
 
           <div>
-            <span>Bạn có 4 lớp thi</span>
+            <span>Bạn có {scheduleData?.length} lớp thi</span>
           </div>
 
           <div className="flex gap-x-10">
             <div className="bg-gray-300 p-4 rounded-md text-sm flex flex-col space-y-2 self-start ">
               <div className="text-xl">Thông tin sinh viên</div>
-              <div>Họ và tên: Mã Tiến Hiệp</div>
-              <div>Ngày sinh: 16-02-2003</div>
-              <div>Lớp: Khoa học máy tính K66</div>
+              <div>Họ và tên: {studentData?.name}</div>
+              <div>MSSV: {studentData?.id}</div>
+              <div>Lớp: {studentData?.groupName}</div>
+              <div>Email: {studentData?.email}</div>
             </div>
             <div className="flex flex-col space-y-4">
-              <ExamStudent></ExamStudent>
-              <ExamStudent></ExamStudent>
-              <ExamStudent></ExamStudent>
+              {/* <ExamStudent data={scheduleData} ></ExamStudent> */}
+
+              {scheduleData &&
+                scheduleData.map((data) => (
+                  <div className="flex flex-row bg-gray-300 gap-x-2 p-4 rounded-md items-center  w-[500px]">
+                    <div className="text-sm flex flex-col gap-y-2 mr-6 ml-3 w-1/2">
+                      <div>{data.classId}</div>
+                      <div>{data.courseId}</div>
+                      <div>{data.courseName}</div>
+                      <div>{data.date}</div>
+                      <div>{data.day}</div>
+                    </div>
+                    <div className="text-sm flex flex-col gap-y-2 w-1/2">
+                      <div>{data.room}</div>
+                      <div>{data.sessionId}</div>
+                      <div>{data.studyGroup}</div>
+                      <div>{data.week}</div>
+                      <div>{data.type}</div>
+                    </div>
+                  </div>
+                ))}
             </div>
           </div>
         </div>

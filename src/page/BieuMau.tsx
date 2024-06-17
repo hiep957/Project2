@@ -3,6 +3,7 @@ import { PDFViewer } from "@react-pdf/renderer";
 
 
 import PDFLopThi from "../PDFLopThi";
+import PDFDocument from "../PDFDocument";
 // import PDFViewerComponent from "../PDFViewer";
 
 const BieuMau = () => {
