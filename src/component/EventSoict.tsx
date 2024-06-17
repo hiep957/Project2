@@ -5,7 +5,7 @@ const EventSoict = () => {
       <a href="#">
         <img
           className="rounded-t-lg h-48 w-full object-cover"
-          src="src/assets/inovation.png"
+          src="https://soict.hust.edu.vn/wp-content/uploads/436709274_446840001387760_6235710552414395883_n.jpg"
           alt="123"
         />
       </a>

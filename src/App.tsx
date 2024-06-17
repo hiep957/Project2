@@ -22,11 +22,12 @@ import TestSideBar from "./component/TestSideBar";
 import EventSoict from "./component/EventSoict";
 import GiaoVien from "./page/GiaoVien";
 import Api from "./page/Api";
+import ThemLichThi from "./page/ThemLichThi";
 const App = () => {
   return (
     <Router>
 
-
+      
       <Routes>
         {/* <Route path="/sidebar" element={<TestSideBar></TestSideBar>}></Route> */}
         <Route path="/api" element={<Api></Api>}></Route>
@@ -82,6 +83,7 @@ const App = () => {
         />
 
         <Route path="/giaovien" element={<Layout><GiaoVien></GiaoVien></Layout>}></Route>
+        <Route path="/giaovien/themlichthi" element={<Layout><ThemLichThi></ThemLichThi></Layout>}></Route>
       </Routes>
     </Router>
   );

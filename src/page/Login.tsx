@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import { FaMicrosoft } from "react-icons/fa";
 // import { useState } from "react";
-import {  useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 export type LoginForm = {
   email: string;
   password: string;
@@ -11,23 +12,27 @@ export type LoginForm = {
 const Login = () => {
   const {
     register,
-
+    watch,
     handleSubmit,
   } = useForm<LoginForm>();
-
+  const role_input = watch("role");
+  
   const onSubmit = handleSubmit(async () => {
     try {
-      const response = await fetch('https://8f51-113-190-119-178.ngrok-free.app/api/v1/auth/login', {
-        method: 'GET',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/json',
-          'ngrok-skip-browser-warning': 'true',
-          'Access-Control-Allow-Origin': "*",
-          'Access-Control-Allow-Methods': "GET,POST,OPTIONS,DELETE,PUT"
-        },
-        // body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://8f51-113-190-119-178.ngrok-free.app/api/v1/auth/login",
+        {
+          method: "GET",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET,POST,OPTIONS,DELETE,PUT",
+          },
+          // body: JSON.stringify(data),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status} ${response.statusText}`);
@@ -89,7 +94,7 @@ const Login = () => {
               <label className="flex items-center">
                 <input
                   type="radio"
-                  value="sinhvien"
+                  value="student"
                   {...register("role")}
                   className="form-radio text-blue-600 h-4 w-4"
                 />
@@ -98,7 +103,7 @@ const Login = () => {
               <label className="flex items-center">
                 <input
                   type="radio"
-                  value="giaovien"
+                  value="instructor"
                   {...register("role")}
                   className="form-radio text-blue-600 h-4 w-4"
                 />
@@ -107,7 +112,7 @@ const Login = () => {
               <label className="flex items-center">
                 <input
                   type="radio"
-                  value="giaovu"
+                  value="academic_affairs"
                   className="form-radio text-blue-600 h-4 w-4"
                   {...register("role")}
                 />
@@ -133,10 +138,11 @@ const Login = () => {
 
             <span className="font-sm mt-5"> - OR -</span>
             <div className="flex flex-row gap-x-2 mt-5">
-              <button className="flex  border border-gray-300 rounded-lg text-md p-2"  >
-                <FcGoogle className="w-6 h-6 inline mr-2" />
-                <a href="https://8f51-113-190-119-178.ngrok-free.app/api/v1/auth/login">Đăng nhập bằng Google</a>
-                
+              <button className="flex  border border-gray-300 rounded-lg text-md p-2">
+                <FaMicrosoft  className="w-6 h-6 inline mr-2" />
+                <a href={`https://0ce3-14-191-32-72.ngrok-free.app/api/v1/auth/login?role=${role_input}`}>
+                  Đăng nhập bằng Microsoft
+                </a>
               </button>
               <button className="flex  border border-gray-300 rounded-lg text-md p-2">
                 <FaGithub className="w-6 h-6 inline mr-2" />
