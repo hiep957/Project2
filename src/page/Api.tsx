@@ -25,7 +25,7 @@ const Api = () => {
     setAccessToken(access_Token);
     // Kiểm tra role và chuyển hướng nếu cần
     if (role === "student") {
-      navigate("/");
+      navigate("/sinhvien");
     }
     if (role === "instructor") {
       navigate("/giaovien");

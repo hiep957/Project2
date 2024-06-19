@@ -10,13 +10,9 @@ export type LoginForm = {
   role: string;
 };
 const Login = () => {
-  const {
-    register,
-    watch,
-    handleSubmit,
-  } = useForm<LoginForm>();
+  const { register, watch, handleSubmit } = useForm<LoginForm>();
   const role_input = watch("role");
-  
+
   const onSubmit = handleSubmit(async () => {
     try {
       const response = await fetch(
@@ -61,7 +57,6 @@ const Login = () => {
             onSubmit={onSubmit}
           >
             <div className="font-bold ">Đăng nhập hệ thống</div>
-           
 
             <div className="flex flex-col space-y-2">
               <label className="flex items-center">
@@ -93,27 +88,12 @@ const Login = () => {
               </label>
             </div>
 
-            <span className="flex items-center justify-between mt-4">
-              <span className="text-sm">
-                Not Registered?{" "}
-                <Link className="underline" to="/register">
-                  Create an account here
-                </Link>
-              </span>
-            </span>
-
-            <button
-              type="submit"
-              className="bg-blue-200 text-black p-2 font-sm hover:bg-blue-300 text-sm rounded mt-4 "
-            >
-              Đăng nhập
-            </button>
-
-            <span className="font-sm mt-5"> - OR -</span>
             <div className="flex flex-row gap-x-2 mt-5">
               <button className="flex  border border-gray-300 rounded-lg text-md p-2">
-                <FaMicrosoft  className="w-6 h-6 inline mr-2" />
-                <a href={`https://19df-42-113-220-219.ngrok-free.app/api/v1/auth/login?role=${role_input}`}>
+                <FaMicrosoft className="w-6 h-6 inline mr-2" />
+                <a
+                  href={`https://19df-42-113-220-219.ngrok-free.app/api/v1/auth/login?role=${role_input}`}
+                >
                   Đăng nhập bằng Microsoft
                 </a>
               </button>

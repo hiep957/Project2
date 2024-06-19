@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type KipThi = {
   id: string;
@@ -20,8 +22,14 @@ const CaiDatThoiGian = () => {
     event.preventDefault();
     const start = start1.replace(":", "h");
     const end = end1.replace(":", "h");
-    await postexamSession({ label, start, end });
-    getExamSession().then((data) => setKipthi(data));
+    try {
+      await postExamSession({ label, start, end });
+      toast.success('Kíp thi đã được thêm thành công!');
+      getExamSession().then((data) => setKipthi(data));
+    } catch (error) {
+      console.error("Error adding exam session:", error);
+      toast.error('Đã xảy ra lỗi khi thêm kíp thi.');
+    }
   };
 
   const getExamSession = async () => {
@@ -46,7 +54,7 @@ const CaiDatThoiGian = () => {
     return response.json();
   };
 
-  const postexamSession = async (data: any) => {
+  const postExamSession = async (data: any) => {
     if (!authContext) {
       return;
     }
@@ -69,15 +77,41 @@ const CaiDatThoiGian = () => {
     return response.json();
   };
 
+  const deleteExamSession = async (id: string) => {
+    if (!authContext) {
+      return;
+    }
+    try {
+      const { accessToken } = authContext;
+      const response = await fetch(
+        `https://19df-42-113-220-219.ngrok-free.app/api/v1/exam-session/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      toast.success('Kíp thi đã được xóa thành công!');
+      getExamSession().then((data) => setKipthi(data));
+    } catch (error) {
+      console.error("Error deleting exam session:", error);
+      toast.error('Đã xảy ra lỗi khi xóa kíp thi.');
+    }
+  };
+
   useEffect(() => {
     getExamSession().then((data) => setKipthi(data));
   }, []);
 
   return (
-    <div className="flex flex-row items-center p-6 bg-gray-100 min-h-screen">
-      <div>
-        Lớp thi giảng đường và lớp thi phòng máy
-      </div>
+    <div className="flex flex-row items-center p-6 bg-gray-100 min-h-screen space-x-4">
+      <ToastContainer />
       <form
         onSubmit={handleSubmit}
         className="flex flex-col w-full max-w-md p-6 bg-white shadow-md rounded-lg space-y-4"
@@ -124,13 +158,31 @@ const CaiDatThoiGian = () => {
       <div className="mt-10 w-full max-w-md p-6 bg-white shadow-md rounded-lg">
         <h2 className="text-2xl font-semibold text-center mb-4">Danh Sách Kíp Thi</h2>
         <div className="space-y-2">
-          {kipthi && kipthi.map((item) => (
-            <div key={item.id} className="flex flex-col bg-gray-100 p-2 rounded shadow">
-              <div className="font-semibold">Kíp {item.label}</div>
-              <div className="text-sm">Bắt đầu: {item.start}</div>
-              <div className="text-sm">Kết thúc: {item.end}</div>
-            </div>
-          ))}
+          {kipthi &&
+            kipthi.map((item) => (
+              <div key={item.id} className="flex flex-col bg-gray-100 p-2 rounded shadow">
+                <div className="font-semibold">Kíp {item.label}</div>
+                <div className="text-sm">Bắt đầu: {item.start}</div>
+                <div className="text-sm">Kết thúc: {item.end}</div>
+                <button
+                  onClick={() => deleteExamSession(item.id)}
+                  className="mt-2 py-1 px-2 bg-red-500 text-white rounded hover:bg-red-600"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M8.5 3a1 1 0 00-1 1V4h-1v1h1v9a2 2 0 002 2h3a2 2 0 002-2V5h1V4h-1v-.01a1 1 0 00-1-1h-4zM6 5h7v9a1 1 0 01-1 1h-3a1 1 0 01-1-1V5z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            ))}
         </div>
       </div>
     </div>

@@ -7,10 +7,10 @@ const Header = () => {
   const { role, accessToken } = authContext ?? { role: "" };
   console.log(role);
   // if (role === "academic_affair") {
-  const [user, setUser] = useState({name:""});
+  const [user, setUser] = useState({ name: "" });
 
   if (role === "student") {
-    console.log("student")
+    console.log("student");
   } else {
     useEffect(() => {
       const fetchProfile = async () => {
@@ -34,7 +34,7 @@ const Header = () => {
         }
       };
 
-      if (role === "academic_affair"||role ==="instructor") {
+      if (role === "academic_affair" || role === "instructor") {
         fetchProfile();
       }
     }, [role, accessToken]);
@@ -62,14 +62,7 @@ const Header = () => {
         ) : (
           <div className="flex space-x-2">
             <Link
-              to="/signin"
-              className="flex bg-buttonColor items-center text-white rounded
-                            p-2 font-bold hover:bg-gray-100"
-            >
-              Đăng ký
-            </Link>
-            <Link
-              to="/signin"
+              to="/"
               className="flex bg-buttonColor items-center text-white rounded
                             p-2 font-bold hover:bg-gray-100"
             >

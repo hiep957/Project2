@@ -32,11 +32,11 @@ const App = () => {
         {/* <Route path="/sidebar" element={<TestSideBar></TestSideBar>}></Route> */}
         <Route path="/api" element={<Api></Api>}></Route>
         <Route path="/pdf" element={<PDFViewerComponent />} />
-        <Route path="/signin" element={<Login></Login>}></Route>
+        <Route path="/" element={<Login></Login>}></Route>
         <Route path="/signup" element={<Signup></Signup>}></Route>
 
         <Route
-          path="/"
+          path="/sinhvien"
           element={
             <>
               <Layout>
