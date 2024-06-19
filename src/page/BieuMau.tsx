@@ -16,7 +16,7 @@ const BieuMau = () => {
      
       <div>
       <PDFViewer style={{width:"100%",height:"800px"}}>
-        <PDFLopThi/>
+        <PDFDocument/>
       </PDFViewer>
       </div>
 

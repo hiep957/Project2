@@ -113,7 +113,7 @@ const Login = () => {
             <div className="flex flex-row gap-x-2 mt-5">
               <button className="flex  border border-gray-300 rounded-lg text-md p-2">
                 <FaMicrosoft  className="w-6 h-6 inline mr-2" />
-                <a href={`https://7d87-42-113-220-219.ngrok-free.app/api/v1/auth/login?role=${role_input}`}>
+                <a href={`https://19df-42-113-220-219.ngrok-free.app/api/v1/auth/login?role=${role_input}`}>
                   Đăng nhập bằng Microsoft
                 </a>
               </button>

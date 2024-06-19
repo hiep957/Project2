@@ -1,6 +1,5 @@
 // App.tsx
 
-
 // import PDFViewerComponent from "./PDFViewer";
 import {
   BrowserRouter as Router,
@@ -25,11 +24,10 @@ import Api from "./page/Api";
 import ThemLichThi from "./page/ThemLichThi";
 import Chucnang from "./page/Chucnang";
 import DanhSachPhongMay from "./page/DanhSachPhongMay";
+import DanhSachLopThi from "./page/DanhSachLopThi";
 const App = () => {
   return (
     <Router>
-
-      
       <Routes>
         {/* <Route path="/sidebar" element={<TestSideBar></TestSideBar>}></Route> */}
         <Route path="/api" element={<Api></Api>}></Route>
@@ -57,7 +55,7 @@ const App = () => {
                 <div className="w-4/6 border-r border-l p-2">
                   <Outlet />
                 </div>
-                
+
                 <div className="w-1/6">
                   <EventSoict></EventSoict>
                 </div>
@@ -83,28 +81,59 @@ const App = () => {
             </Layout>
           }
         />
-        <Route path="/giaovu/chucnang" element={
-          <Layout>
-          <div className="flex flex-row space-x-3">
-            <TestSideBar></TestSideBar>
-            <Chucnang></Chucnang>
-            <EventSoict></EventSoict>
-          </div>
-        </Layout>
-        }></Route>
-        <Route path = "/giaovu/danhsachphongmay" element={
-           <Layout>
-           <div className="flex flex-row space-x-3">
-             <TestSideBar></TestSideBar>
-             <DanhSachPhongMay></DanhSachPhongMay>
-             <EventSoict></EventSoict>
-           </div>
-         </Layout>
-        }></Route>
+        <Route
+          path="/giaovu/chucnang"
+          element={
+            <Layout>
+              <div className="flex flex-row space-x-3">
+                <TestSideBar></TestSideBar>
+                <Chucnang></Chucnang>
+                <EventSoict></EventSoict>
+              </div>
+            </Layout>
+          }
+        ></Route>
+        <Route
+          path="/giaovu/danhsachphongmay"
+          element={
+            <Layout>
+              <div className="flex flex-row space-x-3">
+                <TestSideBar></TestSideBar>
+                <DanhSachPhongMay></DanhSachPhongMay>
+                <EventSoict></EventSoict>
+              </div>
+            </Layout>
+          }
+        ></Route>
 
-        <Route path="/giaovien" element={<Layout><GiaoVien></GiaoVien></Layout>}></Route>
-        <Route path="/giaovien/themlichthi" element={<Layout><ThemLichThi></ThemLichThi></Layout>}></Route>
-        
+        <Route
+          path="/giaovu/danhsachlopthi"
+          element={
+            <Layout>
+              <div className="flex flex-row space-x-3">
+                <TestSideBar></TestSideBar>
+                <DanhSachLopThi></DanhSachLopThi>
+                
+              </div>
+            </Layout>
+          }
+        ></Route>
+        <Route
+          path="/giaovien"
+          element={
+            <Layout>
+              <GiaoVien></GiaoVien>
+            </Layout>
+          }
+        ></Route>
+        <Route
+          path="/giaovien/themlichthi"
+          element={
+            <Layout>
+              <ThemLichThi></ThemLichThi>
+            </Layout>
+          }
+        ></Route>
       </Routes>
     </Router>
   );

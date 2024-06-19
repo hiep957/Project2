@@ -14,7 +14,7 @@ export const postexamSession = async (data: examSessionData) => {
     return;
   }
   const { accessToken } = authContext;
-  const response = await fetch("https://7d87-42-113-220-219.ngrok-free.app/api/v1/exam-session", {
+  const response = await fetch("https://19df-42-113-220-219.ngrok-free.app/api/v1/exam-session", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -28,3 +28,22 @@ export const postexamSession = async (data: examSessionData) => {
   }
   return response.json();
 };
+
+// export const profileGiaoVu = async()=> {
+//   if (!authContext) {
+//     return;
+//   }
+//   const { accessToken } = authContext;
+//   const response = await fetch("https://19df-42-113-220-219.ngrok-free.app/api/v1/academic-affair/profile", {
+//     method: "GET",
+//     headers: {
+//       "Content-Type": "application/json",
+//       "ngrok-skip-browser-warning": "true",
+//       Authorization: `Bearer ${accessToken}`,
+//     },
+//   });
+//   if (!response.ok) {
+//     throw new Error("Network response was not ok");
+//   }
+//   return response.json();
+// }

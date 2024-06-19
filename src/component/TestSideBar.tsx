@@ -15,6 +15,7 @@ const TestSideBar = () => {
     { name: "Biểu mẫu", link: "/bieumau", icon: TbReportAnalytics, margin: true },
     {name: "Chức năng", link:"/giaovu/chucnang", icon: MdOutlineDashboard, margin: true},
     {name:"Danh sách phòng máy", link:"/giaovu/danhsachphongmay", icon: AiOutlineUser, margin: true},
+    {name: "Danh sách lớp thi", link:"/giaovu/danhsachlopthi",icon: FiMessageSquare, margin: true},
   ];
   const [open, setOpen] = useState(true);
   return (

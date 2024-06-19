@@ -1,30 +1,27 @@
 import { useContext, useEffect, useState } from "react";
-import { examSessionData, postexamSession } from "../CallApi";
 import { AuthContext } from "../contexts/AuthContext";
 
-const dataKipthi = [
-  { label: "Kíp 1", start: "7h30", end: "9h30" },
-  { label: "Kíp 2", start: "9h30", end: "11h30" },
-  { label: "Kíp 3", start: "13h30", end: "15h30" },
-  { label: "Kíp 4", start: "15h30", end: "17h30" },
-];
+type KipThi = {
+  id: string;
+  label: string;
+  courseId: string;
+  start: string;
+  end: string;
+};
 
 const CaiDatThoiGian = () => {
   const authContext = useContext(AuthContext);
   const [label, setLabel] = useState("");
   const [start1, setStart1] = useState("");
   const [end1, setEnd1] = useState("");
+  const [kipthi, setKipthi] = useState<KipThi[]>([]);
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    // Handle form submission here
     const start = start1.replace(":", "h");
     const end = end1.replace(":", "h");
-    postexamSession({ label, start, end });
-    getExamSession().then((data) => {
-      console.log(data);
-    })
-    // console.log({ label, start, end });
+    await postexamSession({ label, start, end });
+    getExamSession().then((data) => setKipthi(data));
   };
 
   const getExamSession = async () => {
@@ -33,7 +30,7 @@ const CaiDatThoiGian = () => {
     }
     const { accessToken } = authContext;
     const response = await fetch(
-      "https://7d87-42-113-220-219.ngrok-free.app/api/v1/exam-session",
+      "https://19df-42-113-220-219.ngrok-free.app/api/v1/exam-session",
       {
         method: "GET",
         headers: {
@@ -55,7 +52,7 @@ const CaiDatThoiGian = () => {
     }
     const { accessToken } = authContext;
     const response = await fetch(
-      "https://7d87-42-113-220-219.ngrok-free.app/api/v1/exam-session",
+      "https://19df-42-113-220-219.ngrok-free.app/api/v1/exam-session",
       {
         method: "POST",
         headers: {
@@ -71,57 +68,70 @@ const CaiDatThoiGian = () => {
     }
     return response.json();
   };
+
+  useEffect(() => {
+    getExamSession().then((data) => setKipthi(data));
+  }, []);
+
   return (
-    <div className="flex flex-row justify-center items-center">
+    <div className="flex flex-row items-center p-6 bg-gray-100 min-h-screen">
+      <div>
+        Lớp thi giảng đường và lớp thi phòng máy
+      </div>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col w-1/3 p-4 bg-slate-200"
+        className="flex flex-col w-full max-w-md p-6 bg-white shadow-md rounded-lg space-y-4"
       >
-        <div>Bạn có thể thêm kíp thi chung tại đây</div>
-        <label>
+        <h2 className="text-2xl font-semibold text-center">Thêm Kíp Thi</h2>
+        <label className="flex flex-col">
           Tên kíp:
           <input
             type="text"
             value={label}
             onChange={(e) => setLabel(e.target.value)}
-            className="rounded p-2"
+            className="mt-1 p-2 border border-gray-300 rounded"
+            required
           />
         </label>
-        <label>
+        <label className="flex flex-col">
           Thời gian bắt đầu:
           <input
             type="time"
             value={start1}
             onChange={(e) => setStart1(e.target.value)}
+            className="mt-1 p-2 border border-gray-300 rounded"
+            required
           />
         </label>
-        <label>
+        <label className="flex flex-col">
           Thời gian kết thúc:
           <input
             type="time"
             value={end1}
             onChange={(e) => setEnd1(e.target.value)}
+            className="mt-1 p-2 border border-gray-300 rounded"
+            required
           />
         </label>
         <button
           type="submit"
-          className="bg-blue-200 flex justify-center text-xl"
+          className="mt-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
         >
-          Submit
+          Thêm Kíp
         </button>
       </form>
 
-      <div className="ml-10 flex flex-col bg-slate-200 p-2 rounded">
-        <div className="flex justify-center">Đây là danh sách các kíp thi</div>
-        {dataKipthi.map((item) => {
-          return (
-            <div className="flex flex-row">
-              <div className="p-2 ">{item.label}</div>
-              <div className="p-2 ml-4">Bắt đầu từ {item.start}</div>
-              <div className="p-2 ml-4">Đến {item.end}</div>
+      <div className="mt-10 w-full max-w-md p-6 bg-white shadow-md rounded-lg">
+        <h2 className="text-2xl font-semibold text-center mb-4">Danh Sách Kíp Thi</h2>
+        <div className="space-y-2">
+          {kipthi && kipthi.map((item) => (
+            <div key={item.id} className="flex flex-col bg-gray-100 p-2 rounded shadow">
+              <div className="font-semibold">Kíp {item.label}</div>
+              <div className="text-sm">Bắt đầu: {item.start}</div>
+              <div className="text-sm">Kết thúc: {item.end}</div>
             </div>
-          );
-        })}
+          ))}
+        </div>
       </div>
     </div>
   );
