@@ -31,6 +31,7 @@ const DanhSachLopThi = () => {
   const [editingDay, setEditingDay] = useState("");
   const [id, setId] = useState("");
   const [plannedRoom, setPlannedRoom] = useState(""); 
+  const URL_BE = import.meta.env.VITE_SERVER_URL || " ";
   // Current page records
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -42,7 +43,7 @@ const DanhSachLopThi = () => {
     }
     const { accessToken } = authContext;
     const response = await fetch(
-      `https://19df-42-113-220-219.ngrok-free.app/api/v1/exam-class/${examClassId}`,
+      `${URL_BE}/api/v1/exam-class/${examClassId}`,
       {
         method: "PATCH",
         headers: {
@@ -95,7 +96,7 @@ const DanhSachLopThi = () => {
     }
     const { accessToken } = authContext;
     const response = await fetch(
-      `https://19df-42-113-220-219.ngrok-free.app/api/v1/exam-class?type=${type}`,
+      `${URL_BE}/api/v1/exam-class?type=${type}`,
       {
         method: "GET",
         headers: {

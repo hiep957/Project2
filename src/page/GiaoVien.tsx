@@ -18,6 +18,8 @@ type time_table = {
   courseName: string;
 };
 
+const URL_BE = import.meta.env.VITE_SERVER_URL || " ";
+
 const GiaoVien = () => {
   const authContext = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
@@ -31,7 +33,7 @@ const GiaoVien = () => {
     }
     const { accessToken } = authContext;
     const response = await fetch(
-      "https://19df-42-113-220-219.ngrok-free.app/api/v1/class/time-table",
+      `${URL_BE}/api/v1/class/time-table`,
       {
         method: "GET",
         headers: {

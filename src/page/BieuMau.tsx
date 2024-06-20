@@ -7,7 +7,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import GeneratePDF from "../component/PDF";
 import PDFTest from "../PDFTest";
 // import PDFViewerComponent from "../PDFViewer";
-
+const URL_BE = import.meta.env.VITE_SERVER_URL || " ";
 interface Child {
   room: string;
   examClassId: string;
@@ -32,14 +32,14 @@ interface ExamData {
 const BieuMau = () => {
   const authContext = useContext(AuthContext);
   const [examData, setExamData] = useState<ExamData | undefined>();
-  const [valueInput,setvalueInput] = useState<string>("")
+  const [valueInput, setvalueInput] = useState<string>("");
   const getData = async (data: string) => {
     if (!authContext) {
       return;
     }
     const { accessToken } = authContext;
     const response = await fetch(
-      `https://19df-42-113-220-219.ngrok-free.app/api/v1/student/rpt-lop-thi?courseIds=${data}&semester=2023.1`,
+      `${URL_BE}/api/v1/student/rpt-lop-thi?courseIds=${data}&semester=2023.1`,
       {
         method: "GET",
         headers: {
@@ -53,36 +53,44 @@ const BieuMau = () => {
     }
     return response.json();
   };
+  
   // useEffect(() => {
   //   getData().then((data: ExamData) => {
   //     setExamData(data), console.log(examData);
   //   });
   // }, []);
-  const handleSubmit = async(e: React.FormEvent) =>{
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await getData(valueInput).then((data: ExamData) => {
-      setExamData(data)
+      setExamData(data);
     });
-    console.log(valueInput)
-
-  }
+    console.log(valueInput);
+  };
   return (
     <div className="w-4/6 ">
-      
-
       <div className="text-xl">Nhập mã học phần bạn muốn xem phòng thi</div>
       <label htmlFor="">
         Mời nhập mã học phần
-        <input type="text" className="bg-slate-200 rounded ml-2 p-2" onChange={e=>setvalueInput(e.target.value)} />
+        <input
+          type="text"
+          className="bg-slate-200 rounded ml-2 p-2"
+          onChange={(e) => setvalueInput(e.target.value)}
+        />
       </label>
-      <button className="ml-2 p-2 w-20 rounded bg-slate-200" onClick={handleSubmit}>
+      <button
+        className="ml-2 p-2 w-20 rounded bg-slate-200"
+        onClick={handleSubmit}
+      >
         Gửi
       </button>
-      <div className="mt-5">
-        <PDFViewer style={{ width: "100%", height: "800px" }}>
-          {examData && <PDFTest abc={examData} input={valueInput} />}
-        </PDFViewer>
-      </div>
+      {examData  ? (
+        <div>
+          <PDFViewer style={{ width: "100%", height: "800px" }}>
+            {examData && <PDFTest abc={examData} input={valueInput} />}
+          </PDFViewer>
+        </div>
+      ):"Không có dữ liệu môn thi này"}
+      {/* <div className="mt-5"></div> */}
     </div>
   );
 };

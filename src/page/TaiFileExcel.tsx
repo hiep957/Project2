@@ -9,7 +9,7 @@ type Course = {
   assignedTo: string;
   assignedToEmail: string;
 };
-
+const URL_BE = import.meta.env.VITE_SERVER_URL || " ";
 const TaiFileExcel = () => {
   const [selectedHocPhanIds, setSelectedHocPhanIds] = useState<string[]>([]);
   const authContext = useContext(AuthContext);
@@ -21,7 +21,7 @@ const TaiFileExcel = () => {
     }
     const { accessToken } = authContext;
     const response = await fetch(
-      `https://19df-42-113-220-219.ngrok-free.app/api/v1/course?semester=2023.1`,
+      `${URL_BE}/api/v1/course?semester=2023.1`,
       {
         method: "GET",
         headers: {
@@ -61,7 +61,7 @@ const TaiFileExcel = () => {
     }
     const { accessToken } = authContext;
     const response = await fetch(
-      `https://19df-42-113-220-219.ngrok-free.app/api/v1/excel/download/export-to-pdt?courseIds=${query}&semester=2023.1`,
+      `${URL_BE}/api/v1/excel/download/export-to-pdt?courseIds=${query}&semester=2023.1`,
       {
         method: "GET",
         headers: {

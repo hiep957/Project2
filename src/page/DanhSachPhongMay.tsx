@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Modal from "../component/Modal";
 import { AuthContext } from "../contexts/AuthContext";
 import * as XLSX from "xlsx"; // Import thư viện xlsx
-
+const URL_BE = import.meta.env.VITE_SERVER_URL || " ";
 type PhongMay = {
   id: string;
   status: string;
@@ -27,7 +27,7 @@ const DanhSachPhongMay = () => {
     }
     const { accessToken } = authContext;
     const response = await fetch(
-      "https://19df-42-113-220-219.ngrok-free.app/api/v1/room",
+      `${URL_BE}/api/v1/room`,
       {
         method: "GET",
         headers: {
@@ -53,7 +53,7 @@ const DanhSachPhongMay = () => {
     }
     const { accessToken } = authContext;
     const response = await fetch(
-      "https://19df-42-113-220-219.ngrok-free.app/api/v1/room",
+      `${URL_BE}/api/v1/room`,
       {
         method: "POST",
         headers: {
@@ -76,7 +76,7 @@ const DanhSachPhongMay = () => {
     }
     const { accessToken } = authContext;
     const response = await fetch(
-      `https://19df-42-113-220-219.ngrok-free.app/api/v1/room/${roomId}`,
+      `${URL_BE}/api/v1/room/${roomId}`,
       {
         method: "PATCH",
         headers: {
@@ -107,7 +107,7 @@ const DanhSachPhongMay = () => {
 
   return (
     <div className="w-4/6 mx-auto mt-10 flex flex-col space-y-6">
-      <h1 className="text-2xl font-bold text-center mb-4">Danh Sách Phòng Máy Hiện Có</h1>
+      <h1 className="text-2xl font-bold text-center mb-4">Danh Sách Phòng Máy Hiện Có </h1>
       <div className="grid grid-cols-4 gap-4">
         {room && room.map((item) => (
           <div key={item.id} className="border p-4 rounded-lg shadow-lg flex flex-col items-center">

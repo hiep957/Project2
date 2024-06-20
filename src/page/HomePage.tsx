@@ -3,7 +3,7 @@ import EventSoict from "../component/EventSoict";
 import Swiper1 from "../component/Swiper";
 import { AuthContext } from "../contexts/AuthContext";
 import * as XLSX from "xlsx"; // Import thư viện xlsx
-
+const URL_BE = import.meta.env.VITE_SERVER_URL || " ";
 export type examData = {
   examId: string;
   week: string;
@@ -26,7 +26,7 @@ export type infoStudent = {
   email: string;
 };
 
-const URL_API = import.meta.env.SERVER || "";
+
 
 const HomePage = () => {
   const authContext = useContext(AuthContext);
@@ -41,7 +41,7 @@ const HomePage = () => {
     const fetchScheduleData = async () => {
       try {
         const response = await fetch(
-          "https://19df-42-113-220-219.ngrok-free.app/api/v1/exam-class/student-schedule",
+          `${URL_BE}/api/v1/exam-class/student-schedule`,
           {
             headers: {
               "ngrok-skip-browser-warning": "true",
@@ -67,7 +67,7 @@ const HomePage = () => {
     const fetchStudentData = async () => {
       try {
         const response = await fetch(
-          "https://19df-42-113-220-219.ngrok-free.app/api/v1/student",
+          `${URL_BE}/api/v1/student`,
           {
             headers: {
               "ngrok-skip-browser-warning": "true",

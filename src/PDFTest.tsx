@@ -44,9 +44,9 @@ const PDFTest :React.FC<PDFTestProps> =  ({ abc,input }) => {
     <Document>
       <Page size="A4">
         <View style={styles.header}>
-            <Text>{abc.IT1140.name} - IT1140</Text></View>
+            <Text>{abc[input].name} - {input}</Text></View>
         <View style={styles.container}>
-          {abc.IT1140.list.map((classItem: any, index: number) => (
+          {abc[input].list.map((classItem: any, index: number) => (
             <View key={classItem.examClassId} style={styles.row}>
               <View style={styles.column}>
                 <Text>Mã Lớp thi </Text>

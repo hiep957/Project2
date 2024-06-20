@@ -1,20 +1,22 @@
 import { useContext } from "react";
 import { AuthContext } from "./contexts/AuthContext";
-const URL_BE = "https://7d87-42-113-220-219.ngrok-free.app";
+
 const authContext = useContext(AuthContext);
 
+const URL_BE = process.env.SERVER || "";
 export type examSessionData = {
   label: string;
   start: string;
   end: string;
 };
 
+
 export const postexamSession = async (data: examSessionData) => {
   if (!authContext) {
     return;
   }
   const { accessToken } = authContext;
-  const response = await fetch("https://19df-42-113-220-219.ngrok-free.app/api/v1/exam-session", {
+  const response = await fetch(`${URL_BE}/api/v1/exam-session`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -3,6 +3,7 @@ import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { FaMicrosoft } from "react-icons/fa";
 // import { useState } from "react";
+const URL_BE = import.meta.env.VITE_SERVER_URL || " ";
 import { useForm } from "react-hook-form";
 export type LoginForm = {
   email: string;
@@ -16,7 +17,7 @@ const Login = () => {
   const onSubmit = handleSubmit(async () => {
     try {
       const response = await fetch(
-        "https://8f51-113-190-119-178.ngrok-free.app/api/v1/auth/login",
+        `${URL_BE}/api/v1/auth/login`,
         {
           method: "GET",
           mode: "no-cors",
@@ -92,7 +93,7 @@ const Login = () => {
               <button className="flex  border border-gray-300 rounded-lg text-md p-2">
                 <FaMicrosoft className="w-6 h-6 inline mr-2" />
                 <a
-                  href={`https://19df-42-113-220-219.ngrok-free.app/api/v1/auth/login?role=${role_input}`}
+                  href={`${URL_BE}/api/v1/auth/login?role=${role_input}`}
                 >
                   Đăng nhập bằng Microsoft
                 </a>

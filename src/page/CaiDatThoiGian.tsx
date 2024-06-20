@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+const URL_BE = import.meta.env.VITE_SERVER_URL || " ";
 type KipThi = {
   id: string;
   label: string;
@@ -38,7 +38,7 @@ const CaiDatThoiGian = () => {
     }
     const { accessToken } = authContext;
     const response = await fetch(
-      "https://19df-42-113-220-219.ngrok-free.app/api/v1/exam-session",
+      `${URL_BE}/api/v1/exam-session`,
       {
         method: "GET",
         headers: {
@@ -60,7 +60,7 @@ const CaiDatThoiGian = () => {
     }
     const { accessToken } = authContext;
     const response = await fetch(
-      "https://19df-42-113-220-219.ngrok-free.app/api/v1/exam-session",
+      `${URL_BE}/api/v1/exam-session`,
       {
         method: "POST",
         headers: {
@@ -84,7 +84,7 @@ const CaiDatThoiGian = () => {
     try {
       const { accessToken } = authContext;
       const response = await fetch(
-        `https://19df-42-113-220-219.ngrok-free.app/api/v1/exam-session/${id}`,
+        `${URL_BE}/api/v1/exam-session/${id}`,
         {
           method: "DELETE",
           headers: {

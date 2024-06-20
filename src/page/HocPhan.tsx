@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import Modal from "../component/Modal";
 import { get } from "react-hook-form";
+const URL_BE = import.meta.env.VITE_SERVER_URL || " ";
 type Course = {
   c_id: string;
   c_name: string;
@@ -38,7 +39,7 @@ const HocPhan = () => {
     }
     const { accessToken } = authContext;
     const response = await fetch(
-      "https://19df-42-113-220-219.ngrok-free.app/api/v1/instructor/permission?semester=2023.1",
+      `${URL_BE}/api/v1/instructor/permission?semester=2023.1`,
       {
         method: "POST",
         headers: {
@@ -67,7 +68,7 @@ const HocPhan = () => {
     }
     const { accessToken } = authContext;
     const response = await fetch(
-      `https://19df-42-113-220-219.ngrok-free.app/api/v1/instructor`,
+      `${URL_BE}/api/v1/instructor`,
       {
         method: "GET",
         headers: {
@@ -96,7 +97,7 @@ const HocPhan = () => {
     }
     const { accessToken } = authContext;
     const response = await fetch(
-      `https://19df-42-113-220-219.ngrok-free.app/api/v1/course?semester=2023.1`,
+      `${URL_BE}/api/v1/course?semester=2023.1`,
       {
         method: "GET",
         headers: {
@@ -120,7 +121,7 @@ const HocPhan = () => {
     }
     const { accessToken } = authContext;
     const response = await fetch(
-      `https://19df-42-113-220-219.ngrok-free.app/api/v1/course/permission?semester=2023.1&page=${currentPage}&limit=${itemsPerPage}`,
+      `${URL_BE}/api/v1/course/permission?semester=2023.1&page=${currentPage}&limit=${itemsPerPage}`,
       {
         method: "GET",
         headers: {

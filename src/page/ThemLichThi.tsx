@@ -3,7 +3,7 @@ import EventSoict from "../component/EventSoict";
 import Sidebar from "../component/Nav";
 import Modal from "../component/Modal";
 import { AuthContext } from "../contexts/AuthContext";
-
+const URL_BE = import.meta.env.VITE_SERVER_URL || " ";
 type PhanCong = {
   course: {
     id: string;
@@ -24,7 +24,7 @@ const ThemLichThi = () => {
     }
     const { accessToken } = authContext;
     const response = await fetch(
-      "https://19df-42-113-220-219.ngrok-free.app/api/v1/instructor/permission?semester=2023.1",
+      `${URL_BE}/api/v1/instructor/permission?semester=2023.1`,
       {
         method: "GET",
         headers: {

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
-
+const URL_BE = import.meta.env.VITE_SERVER_URL || " ";
 const Header = () => {
   const authContext = useContext(AuthContext);
   const { role, accessToken } = authContext ?? { role: "" };
@@ -16,7 +16,7 @@ const Header = () => {
       const fetchProfile = async () => {
         try {
           const response = await fetch(
-            `https://19df-42-113-220-219.ngrok-free.app/api/v1/${role}/profile`,
+            `${URL_BE}/api/v1/${role}/profile`,
             {
               headers: {
                 Authorization: `Bearer ${accessToken}`,
