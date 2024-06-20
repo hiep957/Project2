@@ -23,27 +23,7 @@ const GiaoVien = () => {
   const [showModal, setShowModal] = useState(false);
   const [timeTable, setTimeTable] = useState<time_table[]>([]);
   
-  const getHocPhan = async () => {
-    if (!authContext) {
-      return;
-    }
-    const { accessToken } = authContext;
-    const response = await fetch(
-      "https://19df-42-113-220-219.ngrok-free.app/api/v1/instructor/permission?semester=2023.1",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "ngrok-skip-browser-warning": "true",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    return response.json();
-  };
+  
 
   const getLichThi = async () => {
     if (!authContext) {
@@ -68,11 +48,7 @@ const GiaoVien = () => {
     return response.json();
   };
 
-  useEffect(() => {
-    getHocPhan().then((data) => {
-      console.log(data);
-    });
-  }, []);
+  
 
   useEffect(() => {
     getLichThi().then((data) => {

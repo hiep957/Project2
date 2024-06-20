@@ -54,24 +54,24 @@ const Xeplich = () => {
                 {...register("file1", { required: true })}
               />
             </div>
-            <div>
+            {/* <div>
               File 3
               <input
                 className="w-full bg-gray-200 rounded p-2 "
                 type="file"
                 {...register("file1", { required: true })}
               />
-            </div>
+            </div> */}
             <button className=" relative left-48  bg-blue-200 p-2 rounded hover:bg-blue-500">
               Submit
             </button>
           </form>
 
-          <div>Xin chào</div>
+        
         </div>
       </div>
 
-      <div>sadasdsadmasdas</div>
+    
     </div>
   );
 };

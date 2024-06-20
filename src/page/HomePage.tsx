@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import EventSoict from "../component/EventSoict";
 import Swiper1 from "../component/Swiper";
 import { AuthContext } from "../contexts/AuthContext";
+import * as XLSX from "xlsx"; // Import thư viện xlsx
 
 export type examData = {
   examId: string;
@@ -37,7 +38,7 @@ const HomePage = () => {
   const [studentData, setStudentData] = useState<infoStudent | undefined>();
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchScheduleData = async () => {
       try {
         const response = await fetch(
           "https://19df-42-113-220-219.ngrok-free.app/api/v1/exam-class/student-schedule",
@@ -59,11 +60,11 @@ const HomePage = () => {
       }
     };
 
-    fetchData();
+    fetchScheduleData();
   }, []);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchStudentData = async () => {
       try {
         const response = await fetch(
           "https://19df-42-113-220-219.ngrok-free.app/api/v1/student",
@@ -84,8 +85,38 @@ const HomePage = () => {
       }
     };
 
-    fetchData();
+    fetchStudentData();
   }, []);
+
+  const exportToExcel = () => {
+    if (!scheduleData || !studentData) return;
+
+    const data = scheduleData.map((exam) => ({
+      "Mã Lớp": exam.classId,
+      "Mã Học Phần": exam.courseId,
+      "Tên Học Phần": exam.courseName,
+      "Ngày Thi": exam.date,
+      "Thứ": exam.day,
+      "Tuần": exam.week,
+      "Phòng": exam.room,
+      "Ca": exam.sessionId,
+      "Nhóm": exam.studyGroup,
+      "Loại": exam.type,
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "LichThiSinhVien");
+
+    // Tạo thêm một sheet chứa thông tin sinh viên
+    const studentInfo = [
+      { "Họ và tên": studentData.name, "MSSV": studentData.id, "Lớp": studentData.groupName, "Email": studentData.email }
+    ];
+    const studentWorksheet = XLSX.utils.json_to_sheet(studentInfo);
+    XLSX.utils.book_append_sheet(workbook, studentWorksheet, "ThongTinSinhVien");
+
+    XLSX.writeFile(workbook, "LichThiSinhVien.xlsx");
+  };
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -145,19 +176,24 @@ const HomePage = () => {
                 </tbody>
               </table>
             </div>
+            <div className="mt-4">
+              <button
+                className="p-2 bg-green-500 text-white rounded shadow hover:bg-green-600"
+                onClick={exportToExcel}
+              >
+                Xuất Excel
+              </button>
+            </div>
           </div>
         </div>
         <div className="w-1/6 p-2 border-b">
           <div className="mb-3">
             <span className="flex items-center justify-center bg-blue-100 rounded p-2">
-                    Sự kiện nổi bật
+              Sự kiện nổi bật
             </span>
           </div>
           <EventSoict />
         </div>
-      </div>
-      <div className="p-4 bg-white shadow-md rounded-lg">
-        <p>Xin chào</p>
       </div>
     </div>
   );

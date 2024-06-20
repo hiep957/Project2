@@ -16,7 +16,7 @@ import Xeplich from "./page/Xeplich";
 import HocPhan from "./page/HocPhan";
 import CaiDatThoiGian from "./page/CaiDatThoiGian";
 import BieuMau from "./page/BieuMau";
-import PDFViewerComponent from "./PDFViewer";
+// import PDFViewerComponent from "./PDFViewer";
 import TestSideBar from "./component/TestSideBar";
 import EventSoict from "./component/EventSoict";
 import GiaoVien from "./page/GiaoVien";
@@ -25,13 +25,14 @@ import ThemLichThi from "./page/ThemLichThi";
 import Chucnang from "./page/Chucnang";
 import DanhSachPhongMay from "./page/DanhSachPhongMay";
 import DanhSachLopThi from "./page/DanhSachLopThi";
+import TaiFileExcel from "./page/TaiFileExcel";
 const App = () => {
   return (
     <Router>
       <Routes>
         {/* <Route path="/sidebar" element={<TestSideBar></TestSideBar>}></Route> */}
         <Route path="/api" element={<Api></Api>}></Route>
-        <Route path="/pdf" element={<PDFViewerComponent />} />
+        {/* <Route path="/pdf" element={<PDFViewerComponent />} /> */}
         <Route path="/" element={<Login></Login>}></Route>
         <Route path="/signup" element={<Signup></Signup>}></Route>
 
@@ -81,6 +82,7 @@ const App = () => {
             </Layout>
           }
         />
+
         <Route
           path="/giaovu/chucnang"
           element={
@@ -88,6 +90,19 @@ const App = () => {
               <div className="flex flex-row space-x-3">
                 <TestSideBar></TestSideBar>
                 <Chucnang></Chucnang>
+                <EventSoict></EventSoict>
+              </div>
+            </Layout>
+          }
+        ></Route>
+
+        <Route
+          path="/giaovu/taifileexcel"
+          element={
+            <Layout>
+              <div className="flex flex-row space-x-3">
+                <TestSideBar></TestSideBar>
+                <TaiFileExcel></TaiFileExcel>
                 <EventSoict></EventSoict>
               </div>
             </Layout>
@@ -113,7 +128,6 @@ const App = () => {
               <div className="flex flex-row space-x-3">
                 <TestSideBar></TestSideBar>
                 <DanhSachLopThi></DanhSachLopThi>
-                
               </div>
             </Layout>
           }

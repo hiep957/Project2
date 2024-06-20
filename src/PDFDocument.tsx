@@ -13,10 +13,10 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "./contexts/AuthContext";
 
 // Dữ liệu về điểm thi
-  Font.register({
-    family: "Sans-serif",
-    src: "src/font/Roboto-Medium.ttf",
-  });
+Font.register({
+  family: "Sans-serif",
+  src: "src/font/Roboto-Medium.ttf",
+});
 interface Student {
   STT: number;
   MSSV: string;
@@ -217,6 +217,26 @@ const data: Student[] = [
     KyTen: "[Ký tên]",
   },
 ];
+interface Child {
+  room: string;
+  examClassId: string;
+  name: string;
+  courseId: string;
+  time: string;
+  instructorName: string;
+  totalStudent: string;
+  orderInfo: string;
+}
+
+interface ExamClass {
+  examClassId: string;
+  child: Child[];
+}
+
+interface ExamData {
+  name: string;
+  list: ExamClass[];
+}
 
 const styles = StyleSheet.create({
   text: {
@@ -234,8 +254,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   table: {
-    display:'flex',
-    
+    display: "flex",
   },
   row: {
     flexDirection: "row",
@@ -247,34 +266,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const PDFDocument = () => {
-
-  // const authContext = useContext(AuthContext);
-  
-  // const getData = async()=> {
-  //   if(!authContext) {
-  //     return;
-  //   }
-  //   const {accessToken} = authContext;
-  //   const response = await fetch("https://19df-42-113-220-219.ngrok-free.app/api/v1/student/rpt-danh-sach-du-thi", {
-  //     method:"GET",
-  //     headers: {
-  //       "ngrok-skip-browser-warning": "true",
-  //       Authorization: `Bearer ${accessToken}`,
-  //     },
-  //   });
-  //   if (!response.ok) {
-  //     throw new Error("Network response was not ok");
-  //   }
-  //   return response.json();
-  // }
-  // useEffect(() => {
-  //   getData().then((data) => console.log(data));
-  // },[])
-  console.log(data);
+const PDFDocument = ({ abc }: { abc: ExamData }) => {
+  console.log("PDF:", abc);
   return (
     <Document>
-      <Page size="A4">
+      {/* <Page size="A4">
         
         <View
           style={{
@@ -297,7 +293,7 @@ const PDFDocument = () => {
           </View>
         </View>
 
-
+       
        
         <View style={{display:'flex', flexDirection:'column'}}>
           
@@ -351,6 +347,15 @@ const PDFDocument = () => {
             </View>
             ))}
           
+        </View>
+      </Page> */}
+      <Page size="A4">
+        <View style={styles.row}>
+          {Object.entries(abc).map(([key, value]) => (
+            <View style={styles.column} key={key}>
+              <Text>{`${key}: ${value}`}</Text>
+            </View>
+          ))}
         </View>
       </Page>
     </Document>

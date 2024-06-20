@@ -10,12 +10,37 @@ import { Link } from "react-router-dom";
 const TestSideBar = () => {
   const menus = [
     { name: "Xếp lịch", link: "/giaovu/xeplich", icon: MdOutlineDashboard },
-    { name: "Cài đặt thời gian", link: "/giaovu/caidatthoigian", icon: AiOutlineUser },
+    {
+      name: "Cài đặt thời gian",
+      link: "/giaovu/caidatthoigian",
+      icon: AiOutlineUser,
+    },
     { name: "Học phần", link: "/giaovu/hocphan", icon: FiMessageSquare },
-    { name: "Biểu mẫu", link: "/bieumau", icon: TbReportAnalytics, margin: true },
-    
-    {name:"Danh sách phòng máy", link:"/giaovu/danhsachphongmay", icon: AiOutlineUser, margin: true},
-    {name: "Danh sách lớp thi", link:"/giaovu/danhsachlopthi",icon: FiMessageSquare, margin: true},
+
+    {
+      name: "Danh sách phòng máy",
+      link: "/giaovu/danhsachphongmay",
+      icon: AiOutlineUser,
+      margin: true,
+    },
+    {
+      name: "Danh sách lớp thi",
+      link: "/giaovu/danhsachlopthi",
+      icon: FiMessageSquare,
+      margin: true,
+    },
+    {
+      name: "Tải file excel",
+      link: "/giaovu/taifileexcel",
+      icon: TbReportAnalytics,
+      margin: true,
+    },
+    {
+      name: "Biểu mẫu",
+      link: "/bieumau",
+      icon: TbReportAnalytics,
+      margin: true,
+    },
   ];
   const [open, setOpen] = useState(true);
   return (
@@ -37,9 +62,7 @@ const TestSideBar = () => {
             <Link
               to={menu?.link}
               key={i}
-              className={` ${
-                menu?.margin 
-              } group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-300 rounded-md`}
+              className={` ${menu?.margin} group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-300 rounded-md`}
             >
               <div>{React.createElement(menu?.icon, { size: "20" })}</div>
               <h2
@@ -63,7 +86,6 @@ const TestSideBar = () => {
           ))}
         </div>
       </div>
-      
     </section>
   );
 };
